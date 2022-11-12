@@ -4,7 +4,7 @@ import secrets
 import jwt
 import os
 
-def middleware_auth(bottle):
+def server_auth(bottle):
     token = bottle.request.get_cookie("token", secret=os.getenv("COOKIE_SECRET"))
 
     # exit early, no token

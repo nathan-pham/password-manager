@@ -3,13 +3,13 @@ import os
 
 load_dotenv()
 
-from cryptography.fernet import Fernet
-from password_merge import get_key
+from password_merge import encrypt, decrypt
 import password_global
 import database
 import bottle
 
-from middleware_auth import middleware_auth, generate_token
+from server_auth import server_auth, generate_token
+from server_messages import error, success
 
 @bottle.route("/")
 @bottle.view("login.html")
@@ -19,7 +19,7 @@ def home():
 @bottle.route("/~")
 @bottle.view("index.html")
 def dashboard():
-    if middleware_auth(bottle):
+    if server_auth(bottle):
         return {
             "passwords": database.get_passwords()
         }
@@ -32,59 +32,49 @@ def login():
     if password_global.compare_password(password):
         token = generate_token()
         bottle.response.set_cookie("token", token, path="/", httponly=True, secret=os.getenv("COOKIE_SECRET"))
-        return {
-            "success": True,
-            "token": token
-        }
-
-    return {
-        "success": False,
-        "message": "Incorrect password"
-    }
+        return { **success("Created token"), "token": token }
+    return error("Incorrect password")
 
 @bottle.get("/api/getPassword/<id>")
 def get_password(id):
-    if middleware_auth(bottle):
-        f = Fernet(get_key())
-        return {
-            "success": True,
-            "password": f.decrypt(database.get_password(id)[0].encode("utf-8")).decode("utf-8")
-        }
-
-    return {
-        "success": False,
-        "message": "Not authenticated"
-    }
+    if not server_auth(bottle): return error("Not authenticated")
+    
+    password = decrypt(database.get_password(id)[0].encode("utf-8"))
+    return { **success("Created token"), "password": password }
 
 @bottle.post("/api/addPassword")
 def add_password():
-    body = bottle.request.json
+    if not server_auth(bottle): return error("Not authenticated")
+
     try:
-        database.add_password(body.get("url"), body.get("username"), body.get("password"))
-        return {
-            "success": True,
-            "message": "Added password"
-        }
+        body = bottle.request.json
+        database.add_password(body.get("url"), body.get("username"), encrypt(password))
+        return success("Added password")
     except:
-        return {
-            "success": False,
-            "message": "Failed to add password"
-        }
+        return error("Failed to add password")
 
 @bottle.put("/api/updatePassword/<id>")
-def update_password():
-    return {}
+def update_password(id):
+    if not server_auth(bottle): return error("Not authenticated")
+
+    try:
+        body = bottle.request.json
+        database.update_password(id, body.get("url"), body.get("username"), encrypt(password))
+        return success("Updated password")
+    except:
+        return error("Failed to update password")
 
 @bottle.delete("/api/deletePassword/<id>")
-def delete_password():
-    return {}
+def delete_password(id):
+    if not server_auth(bottle): return error("Not authenticated")
+    
+    database.remove_password(id)
+    return success("Removed password")
 
 @bottle.get("/api/passwords")
 def serve_passwords():
     bottle.response.content_type = "application/json" 
-    return {
-        "passwords": database.get_passwords()
-    }
+    return { **success("Retrieved passwords"), "passwords": database.get_passwords() }
 
 # serve static files
 @bottle.route("/<path:path>")

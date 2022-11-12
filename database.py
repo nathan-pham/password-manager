@@ -11,6 +11,13 @@ def add_password(url, username, password):
     cur.execute("INSERT INTO passwords(url, username, password) VALUES(?, ?, ?)", (url, username, password))
     con.commit()
 
+def update_password(id, url, username, password):
+    cur.execute("""
+        UPDATE passwords 
+        SET url = ?, username = ?, password = ? 
+        WHERE id = ?""", (url, username, password, id))
+    con.commit()
+
 def remove_password(id):
     cur.execute("DELETE FROM passwords WHERE id = ?", (id,))
     con.commit()

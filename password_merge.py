@@ -36,3 +36,11 @@ def merge_passwords():
             _, url, username, password = line
             encryped_password = f.encrypt(password.encode("utf-8"))
             database.add_password(url, username, encryped_password.decode("utf-8"))
+
+def encrypt(password):
+    f = Fernet(get_key())
+    return f.encrypt(password.encode("utf-8"))
+
+def decrypt(password):
+    f = Fernet(get_key())
+    return f.decrypt(password).decode("utf-8")
