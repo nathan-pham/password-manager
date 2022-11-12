@@ -44,3 +44,6 @@ def encrypt(password):
 def decrypt(password):
     f = Fernet(get_key())
     return f.decrypt(password).decode("utf-8")
+
+if __name__ == "__main__":
+    merge_passwords()

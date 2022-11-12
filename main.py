@@ -40,7 +40,7 @@ def get_password(id):
     if not server_auth(bottle): return error("Not authenticated")
     
     password = decrypt(database.get_password(id)[0].encode("utf-8"))
-    return { **success("Created token"), "password": password }
+    return { **success("Fetched password"), "password": password }
 
 @bottle.post("/api/addPassword")
 def add_password():
