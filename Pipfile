@@ -8,6 +8,7 @@ bottle = "*"
 cryptography = "*"
 bcrypt = "*"
 pyjwt = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

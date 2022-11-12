@@ -12,8 +12,12 @@ def add_password(url, username, password):
     con.commit()
 
 def remove_password(id):
-    cur.execute("DELETE FROM passwords WHERE id = ?", (id))
+    cur.execute("DELETE FROM passwords WHERE id = ?", (id,))
     con.commit()
+
+def get_password(id):
+    cur.execute("SELECT password FROM passwords WHERE id = ?", (id,))
+    return cur.fetchone()
 
 def get_passwords():
     cur.execute("SELECT * FROM passwords")
