@@ -21,7 +21,7 @@ def home():
 def dashboard():
     if middleware_auth(bottle):
         return {
-            "passwords": database.get_formatted_passwords()
+            "passwords": database.get_passwords()
         }
 
     return bottle.redirect("/")    
@@ -39,7 +39,7 @@ def login():
 
     return {
         "success": False,
-        "error": "Incorrect password"
+        "message": "Incorrect password"
     }
 
 @bottle.get("/api/getPassword/<id>")
@@ -53,18 +53,29 @@ def get_password(id):
 
     return {
         "success": False,
-        "error": "Not authenticated"
+        "message": "Not authenticated"
     }
 
 @bottle.post("/api/addPassword")
 def add_password():
-    return {}
+    body = bottle.request.json
+    try:
+        database.add_password(body.get("url"), body.get("username"), body.get("password"))
+        return {
+            "success": True,
+            "message": "Added password"
+        }
+    except:
+        return {
+            "success": False,
+            "message": "Failed to add password"
+        }
 
-@bottle.put("/api/updatePassword")
+@bottle.put("/api/updatePassword/<id>")
 def update_password():
     return {}
 
-@bottle.delete("/api/deletePassword")
+@bottle.delete("/api/deletePassword/<id>")
 def delete_password():
     return {}
 

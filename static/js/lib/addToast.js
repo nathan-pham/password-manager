@@ -16,11 +16,11 @@ const addToast = (icon, text) => {
         toast,
         {
             opacity: 0,
-            x: "100%",
+            y: 20,
         },
         {
             opacity: 1,
-            x: 0,
+            y: 0,
             ease: "Expo.easeInOut",
         }
     ).fromTo(
@@ -47,6 +47,7 @@ const addToast = (icon, text) => {
 const createToast = (icon, text) => {
     const toast = document.createElement("div");
     toast.textContent = text ? `${icon} ${text}` : `${icon}`;
+    toast.className = "toast";
     Object.assign(toast.style, {
         borderRadius: "0.5rem",
         backgroundColor: "black",
@@ -74,13 +75,6 @@ const getToastWrapper = () => {
     // create toast wrapper
     const toastWrapper = document.createElement("div");
     toastWrapper.className = "toasts";
-    Object.assign(toastWrapper.style, {
-        position: "fixed",
-        bottom: 0,
-        right: 0,
-        padding: "0.75rem",
-    });
-
     document.body.appendChild(toastWrapper);
     return toastWrapper;
 };

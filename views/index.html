@@ -38,29 +38,42 @@
                     <ion-icon name="search-outline"></ion-icon>
                 </div>
 
+                <div class="clearfix">
+                    <button class="button button-right" id="add-password">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                        Add Password
+                    </button>
+                </div>
+
+                <!-- prettier-ignore -->
+                <% from urllib.parse import urlparse %>
+                <% parse = lambda x : urlparse(x).netloc %>
+
                 <div class="passwords">
-                    % for password in passwords:
-                    <div class="password" data-id="{{password['id']}}">
+                    % for ( key, url, username, password ) in passwords:
+                    <div class="password" data-id="{{key}}">
                         <div class="password__details">
                             <img
-                                src="https://icons.duckduckgo.com/ip3/{{password['domain']}}.ico"
+                                src="https://www.google.com/s2/favicons?domain={{parse(url)}}&sz=32"
+                                loading="lazy"
                             />
                             <div>
-                                <h1>
-                                    {{password['domain'].split('.')[-2].capitalize()}}
-                                </h1>
-                                <p>{{password['username']}}</p>
+                                <h1>{{parse(url)}}</h1>
+                                <p>{{username}}</p>
                             </div>
                         </div>
 
-                        <div class="password__copy">
-                            <ion-icon name="copy-outline"></ion-icon>
+                        <div class="password__icons">
+                            <div class="password__edit icon">
+                                <ion-icon name="cog-outline"></ion-icon>
+                            </div>
+                            <div class="password__copy icon">
+                                <ion-icon name="copy-outline"></ion-icon>
+                            </div>
                         </div>
                     </div>
                     % end
                 </div>
-
-                <!-- <ion-icon name="add-circle-outline"></ion-icon> -->
             </main>
 
             <footer class="footer">Made by Nathan Pham with 💖</footer>

@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
+:root {
+    --app-width: 30rem;
+}
+
 html,
 body {
     padding: 0;
@@ -15,11 +19,25 @@ body {
 }
 
 #app {
-    max-width: 30rem;
+    max-width: var(--app-width);
     margin: 0 auto;
 }
 
 /* Input component */
+.input-single {
+    border: 1px solid #eee;
+    outline: none;
+    padding: 0.75rem 1rem;
+    border-radius: 10rem;
+    width: 100%;
+    font-size: 100%;
+    font-family: "Inter", sans-serif;
+}
+
+.input-margin {
+    margin: 0.75rem 0 0 0;
+}
+
 .input {
     display: flex;
     gap: 1rem;
@@ -33,5 +51,44 @@ body {
     outline: none;
     width: 100%;
     height: 100%;
+    font-size: 100%;
     font-family: "Inter", sans-serif;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Button component */
+.button {
+    background-color: #eee;
+    border-radius: 10rem;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 100%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin: 1rem 0 0 0;
+    min-width: 6rem;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    transition: filter 200ms ease-in-out;
+}
+
+.button:hover {
+    filter: brightness(0.95);
+}
+
+.button-right {
+    float: right;
+}
+
+.button-margin {
+    margin: 0.75rem 0 0 0;
 }
