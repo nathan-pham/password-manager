@@ -48,7 +48,7 @@ def add_password():
 
     try:
         body = bottle.request.json
-        database.add_password(body.get("url"), body.get("username"), encrypt(password))
+        database.add_password(body.get("url"), body.get("username"), encrypt(body.get("password")))
         return success("Added password")
     except:
         return error("Failed to add password")
@@ -59,7 +59,7 @@ def update_password(id):
 
     try:
         body = bottle.request.json
-        database.update_password(id, body.get("url"), body.get("username"), encrypt(password))
+        database.update_password(id, body.get("url"), body.get("username"), encrypt(body.get("password")))
         return success("Updated password")
     except:
         return error("Failed to update password")
