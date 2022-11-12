@@ -1,0 +1,28 @@
+#app {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.form {
+    max-width: 20rem;
+}
+
+.form h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.form p {
+    margin: 0.25rem 0 0 0;
+    color: #555;
+}
+
+.form .input {
+    margin: 1rem 0 0 0;
+}
+
+/* <form class="form" action="/login" method="POST">
+<h1>Password Manager</h1>
+<input placeholder="password" type="password" name="password" />
+</form> */

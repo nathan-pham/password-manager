@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔑</text></svg>"
+        />
+        <title>Password Manager</title>
+
+        <link rel="stylesheet" href="/css/globals.css" />
+        <link rel="stylesheet" href="/css/index.css" />
+
+        <script type="module" src="/js/index.js"></script>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+        ></script>
+    </head>
+    <body>
+        <div id="app">
+            <header class="header">
+                <div class="header__logo">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                </div>
+                <div class="header__profile">
+                    <img src="/images/me.jpg" />
+                </div>
+            </header>
+
+            <main>
+                <!-- https://icons.duckduckgo.com/ip3/google.com.ico -->
+                <div class="input">
+                    <input placeholder="Search" type="text" />
+                    <ion-icon name="search-outline"></ion-icon>
+                </div>
+
+                <div class="passwords">
+                    % for password in passwords:
+                    <div class="password" data-id="{{password['id']}}">
+                        <div class="password__details">
+                            <img
+                                src="https://icons.duckduckgo.com/ip3/{{password['domain']}}.ico"
+                            />
+                            <div>
+                                <h1>
+                                    {{password['domain'].split('.')[-2].capitalize()}}
+                                </h1>
+                                <p>{{password['username']}}</p>
+                            </div>
+                        </div>
+
+                        <div class="password__copy">
+                            <ion-icon name="copy-outline"></ion-icon>
+                        </div>
+                    </div>
+                    % end
+                </div>
+
+                <!-- <ion-icon name="add-circle-outline"></ion-icon> -->
+            </main>
+
+            <footer class="footer">Made by Nathan Pham with 💖</footer>
+        </div>
+    </body>
+</html>

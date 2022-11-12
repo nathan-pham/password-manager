@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔑</text></svg>"
+        />
+        <title>Password Manager</title>
+
+        <link rel="stylesheet" href="/css/globals.css" />
+        <link rel="stylesheet" href="/css/login.css" />
+
+        <script type="module" src="/js/login.js"></script>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+        ></script>
+    </head>
+    <body>
+        <div id="app">
+            <form class="form" action="/login" method="POST">
+                <h1>Password Manager</h1>
+                <p>Your personal password manager.</p>
+
+                <div class="input">
+                    <input
+                        placeholder="password"
+                        type="password"
+                        name="password"
+                    />
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
