@@ -1,3 +1,4 @@
 {
-    "explorer.sortOrder": "type"
+    "explorer.sortOrder": "type",
+    "python.formatting.provider": "black"
 }

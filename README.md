@@ -33,3 +33,10 @@ Start the Python Bottle server and go to `localhost:5500`
 ```
 py main.py
 ```
+
+## Usage (with Docker)
+
+```
+docker build password-manager .
+docker run -d -p 5500:5500 password-manager
+```
