@@ -37,6 +37,6 @@ py main.py
 ## Usage (with Docker)
 
 ```
-docker build password-manager .
+docker build -t password-manager .
 docker run -d -p 5500:5500 password-manager
 ```

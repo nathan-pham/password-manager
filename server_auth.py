@@ -4,6 +4,7 @@ import secrets
 import jwt
 import os
 
+
 def server_auth(bottle):
     token = bottle.request.get_cookie("token", secret=os.getenv("COOKIE_SECRET"))
 
@@ -17,13 +18,9 @@ def server_auth(bottle):
     except Exception as e:
         return False
 
+
 def generate_token():
     now = datetime.now(tz=timezone.utc)
-    payload = { 
-        "iat": now,
-        "exp": now + timedelta(hours=1)
-    }
+    payload = {"iat": now, "exp": now + timedelta(hours=1)}
 
-    token = jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm="HS256")
-    print(token)
-    return token
+    return jwt.encode(payload, os.getenv("JWT_SECRET"), algorithm="HS256")

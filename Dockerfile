@@ -21,10 +21,8 @@ FROM base as runtime
 COPY --from=deps /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
 
-# Create and switch to a new user
-RUN useradd --create-home appuser
-WORKDIR /home/appuser
-USER appuser
+# I'm not familiar with Docker but I need write capabilities for the db
+USER root
 
 COPY . .
 
