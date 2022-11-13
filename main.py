@@ -44,7 +44,7 @@ def get_password(id):
     if not server_auth(bottle):
         return error("Not authenticated")
 
-    password = decrypt(database.get_password(id)[0].encode("utf-8"))
+    password = decrypt(database.get_password(id)[0])
     return {**success("Fetched password"), "password": password}
 
 
